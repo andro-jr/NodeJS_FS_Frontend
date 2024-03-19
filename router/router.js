@@ -26,9 +26,23 @@ router.get("/register", (req, res) => {
   });
 });
 
+router.post("/register", (req, res) => {
+  console.log('registering')
+  res.render("index", {
+    pagename: "Home",
+  });
+});
+
 router.get("/login", (req, res) => {
   res.render("login", {
     pagename: "Login",
+  });
+});
+
+router.post("/login", (req, res) => {
+  console.log('logging')
+  res.render("index", {
+    pagename: "Home",
   });
 });
 
