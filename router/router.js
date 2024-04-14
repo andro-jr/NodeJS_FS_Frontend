@@ -1,5 +1,5 @@
 const express = require("express");
-const { validateRegistration } = require("../validation/validation");
+const { validateRegistration, validateLogin } = require("../validation/validation");
 const { isEmpty } = require("../utilities/util");
 const messages = require("../utilities/messages");
 
@@ -52,10 +52,19 @@ router.get("/login", (req, res) => {
 });
 
 router.post("/login", (req, res) => {
-  console.log('logging')
-  res.render("index", {
-    pagename: "Home",
-  });
+  const errors = validateLogin(req.body);
+  if (isEmpty(errors)) {
+    res.render("index", {
+      pagename: "Home", message: messages.successful_login
+    });
+  } else {
+    res.render('login', {
+      pagename: 'Login',
+      body: req.body,
+      errors,
+      message: messages.failed_login
+    })
+  }
 });
 
 module.exports = router;

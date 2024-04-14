@@ -43,6 +43,10 @@
               action="/login"
               method="POST"
             >
+            <% if(typeof(message) != 'undefined'){%>
+
+              <h4 class="error-message"><%- message %></h4>
+              <% } %>
               <!-- Email address input-->
               <div class="row input-group-newsletter custom-form-row">
                 <div class="col">
@@ -52,9 +56,16 @@
                     type="email"
                     name="email"
                     placeholder="Enter email"
+                   
                     aria-label="Enter email"
-                    data-sb-validations="required,email"
+                    <% if(typeof body != 'undefined'){
+                      %> value="<%- body.email  %>" <%
+                    } %>
                   />
+                  <% if(typeof(errors) != 'undefined'){%>
+
+                    <span class="error-message"><%- errors.emailMsg %></h4>
+                    <% } %>
                 </div>
                 <div class="col">
                   <input
@@ -63,8 +74,14 @@
                     type="password"
                     name="password"
                     placeholder="Enter password"
-                    aria-label="Enter password"
+                    <% if(typeof body != 'undefined'){
+                      %> value="<%- body.password  %>" <%
+                    } %>
                   />
+                  <% if(typeof(errors) != 'undefined'){%>
+
+                    <span class="error-message"><%- errors.passwordMsg %></h4>
+                    <% } %>
                 </div>
                 <div class="col-auto">
                   <button
