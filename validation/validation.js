@@ -1,6 +1,7 @@
 const validateRegistration = (body) => {
     let errors = {};
 
+
     if (
         body.firstName.trim().length < 2 ||
         !/^[A-Za-z]+$/.test(body.firstName.trim())
@@ -27,10 +28,7 @@ const validateRegistration = (body) => {
     }
 
     if (
-        body.state.trim().length < 2 ||
-        !/(A[KLRZ]|C[AOT]|D[CE]|FL|GA|HI|I[ADLN]|K[SY]|LA|M[ADEINOST]|N[CDEHJMVY]|O[HKR]|PA|RI|S[CD]|T[NX]|UT|V[AT]|W[AIVY])/.test(
-            body.state.trim()
-        )
+        body.state.trim().length < 2
     ) {
         errors.stateMsg = 'State must be 2 characters';
     }
@@ -50,7 +48,7 @@ const validateRegistration = (body) => {
         body.password.trim().length == 0 ||
         !/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(body.password.trim())
     ) {
-        errors.passwordMsg = 'Invalid Password format';
+        errors.passwordMsg = 'Password must be atlease 8 character long and contain numbers.';
     }
 
     if (

@@ -51,6 +51,10 @@
               action="/register"
               method="POST"
             >
+              <% if(typeof(message) != 'undefined'){%>
+
+              <h4 class="error-message"><%- message %></h4>
+              <% } %>
               <!-- Email address input-->
               <div class="row input-group-newsletter custom-form-row">
                 <div class="col">
@@ -61,7 +65,14 @@
                     name="firstName"
                     placeholder="Enter first name"
                     aria-label="Enter first name"
+                    <% if(typeof body != 'undefined'){
+                      %> value="<%- body.firstName  %>" <%
+                    } %>
                   />
+                  <% if(typeof(errors) != 'undefined'){%>
+
+                  <span class="error-message"><%- errors.firstNameMsg %></h4>
+                  <% } %>
                 </div>
                 <div class="col">
                   <input
@@ -70,8 +81,15 @@
                     type="text"
                     name="lastName"
                     placeholder="Enter last name"
-                    aria-label="Enter name"
+                    aria-label="Enter name" 
+                    <% if(typeof body != 'undefined'){
+                      %> value="<%- body.lastName  %>" <%
+                    } %>
                   />
+                  <% if(typeof(errors) != 'undefined'){%>
+
+                    <span class="error-message"><%- errors.lastNameMsg %></h4>
+                    <% } %>
                 </div>
                 <div class="col">
                   <input
@@ -82,7 +100,14 @@
                     placeholder="Enter email"
                     aria-label="Enter email"
                     data-sb-validations="required,email"
+                    <% if(typeof body != 'undefined'){
+                      %> value="<%- body.email  %>" <%
+                    } %>
                   />
+                  <% if(typeof(errors) != 'undefined'){%>
+
+                    <span class="error-message"><%- errors.emailMsg %></h4>
+                    <% } %>
                 </div>
                 <div class="col">
                   <input
@@ -92,7 +117,14 @@
                     name="password"
                     placeholder="Enter password"
                     aria-label="Enter password"
+                    <% if(typeof body != 'undefined'){
+                      %> value="<%- body.password  %>" <%
+                    } %>
                   />
+                  <% if(typeof(errors) != 'undefined'){%>
+
+                    <span class="error-message"><%- errors.passwordMsg %></h4>
+                    <% } %>
                 </div>
                 <div class="col">
                   <input
@@ -102,7 +134,14 @@
                     name="confirmPassword"
                     placeholder="Confirm Password"
                     aria-label="Confirm Password"
+                    <% if(typeof body != 'undefined'){
+                      %> value="<%- body.confirmPassword  %>" <%
+                    } %>
                   />
+                  <% if(typeof(errors) != 'undefined'){%>
+
+                    <span class="error-message"><%- errors.cpasswordMsg %></h4>
+                    <% } %>
                 </div>
                 <div class="col">
                   <input
@@ -112,7 +151,14 @@
                     name="address"
                     placeholder="Enter address"
                     aria-label="Enter address"
+                    <% if(typeof body != 'undefined'){
+                      %> value="<%- body.address  %>" <%
+                    } %>
                   />
+                  <% if(typeof(errors) != 'undefined'){%>
+
+                    <span class="error-message"><%- errors.addressMsg %></h4>
+                    <% } %>
                 </div>
                 <div class="col">
                   <input
@@ -122,7 +168,31 @@
                     name="state"
                     placeholder="Enter state"
                     aria-label="Enter state"
+                    <% if(typeof body != 'undefined'){
+                      %> value="<%- body.state  %>" <%
+                    } %>
                   />
+                  <% if(typeof(errors) != 'undefined'){%>
+
+                    <span class="error-message"><%- errors.stateMsg %></h4>
+                    <% } %>
+                </div>
+                <div class="col">
+                  <input
+                    class="form-control"
+                    id="city"
+                    type="text"
+                    name="city"
+                    placeholder="Enter city"
+                    aria-label="Enter city"
+                    <% if(typeof body != 'undefined'){
+                      %> value="<%- body.city  %>" <%
+                    } %>
+                  />
+                  <% if(typeof(errors) != 'undefined'){%>
+
+                    <span class="error-message"><%- errors.cityMsg %></h4>
+                    <% } %>
                 </div>
                 <div class="col">
                   <input
@@ -132,7 +202,14 @@
                     name="zipCode"
                     placeholder="Enter Zip Code"
                     aria-label="Enter Zip Code"
+                    <% if(typeof body != 'undefined'){
+                      %> value="<%- body.zipCode  %>" <%
+                    } %>
                   />
+                  <% if(typeof(errors) != 'undefined'){%>
+
+                    <span class="error-message"><%- errors.zipCodeMsg %></h4>
+                    <% } %>
                 </div>
 
                 <div class="col-auto">

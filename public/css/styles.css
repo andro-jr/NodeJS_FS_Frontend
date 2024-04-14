@@ -11585,3 +11585,9 @@ body {
   flex-direction: column !important;
   gap: 20px;
 }
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+  display: inline-block;
+}

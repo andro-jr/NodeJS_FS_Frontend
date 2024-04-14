@@ -6,6 +6,8 @@ const app = express();
 // CORS
 app.use(cors());
 
+
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // middleware templateing

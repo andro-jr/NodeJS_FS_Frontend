@@ -30,15 +30,19 @@ router.get("/register", (req, res) => {
 });
 
 router.post("/register", (req, res) => {
-  console.log('registering');
-
   const errors = validateRegistration(req.body);
   if (isEmpty(errors)) {
     res.render("login", {
       pagename: "Login", message: messages.successful_register
     });
+  } else {
+    res.render('register', {
+      pagename: 'Register',
+      body: req.body,
+      errors,
+      message: messages.failed_register
+    })
   }
-
 });
 
 router.get("/login", (req, res) => {
