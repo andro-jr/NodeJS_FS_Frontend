@@ -1,10 +1,23 @@
 const express = require("express");
-const { validateRegistration, validateLogin } = require("../validation/validation");
+const {
+  validateRegistration,
+  validateLogin,
+} = require("../validation/validation");
 const { isEmpty } = require("../utilities/util");
 const messages = require("../utilities/messages");
 const { postRegister, postLogin } = require("../services/userService");
+let session = require("express-session");
 
 const router = express.Router();
+require("dotenv").config();
+
+router.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 // Define custom middleware to add current year to response locals
 router.use((req, res, next) => {
@@ -13,14 +26,19 @@ router.use((req, res, next) => {
 });
 
 router.get("/", (req, res) => {
+  session = req.session
+
   res.render("index", {
-    pagename: "Home"
+    pagename: "Home",
+    session
   });
 });
 
 router.get("/about", (req, res) => {
+  session = req.session
   res.render("about", {
-    pagename: "About"
+    pagename: "About",
+    session
   });
 });
 
@@ -34,24 +52,25 @@ router.post("/register", async (req, res) => {
   const errors = validateRegistration(req.body);
   if (isEmpty(errors)) {
     try {
-      await postRegister(req.body)
+      await postRegister(req.body);
 
       res.render("login", {
-        pagename: "Login", message: messages.successful_register
+        pagename: "Login",
+        message: messages.successful_register,
       });
     } catch (err) {
-      res.render('register', {
-        pagename: 'Register',
-        message: err.response.data.error.message
-      })
+      res.render("register", {
+        pagename: "Register",
+        message: err.response.data.error.message,
+      });
     }
   } else {
-    res.render('register', {
-      pagename: 'Register',
+    res.render("register", {
+      pagename: "Register",
       body: req.body,
       errors,
-      message: messages.failed_register
-    })
+      message: messages.failed_register,
+    });
   }
 });
 
@@ -62,28 +81,36 @@ router.get("/login", (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
+  session = req.session;
   const errors = validateLogin(req.body);
   if (isEmpty(errors)) {
     try {
-      const response = await postLogin(req.body)
-      console.log('response :', response);
+      const response = await postLogin(req.body);
+      console.log("response :", response);
+      session.name = response.data.user.firstName;
+      session.logged = response.data.logged;
+      session.token = response.data.token;
+
+      console.log(session)
 
       res.render("index", {
-        pagename: "Home", message: messages.successful_login
+        pagename: "Home",
+        message: messages.successful_login,
+        session: session,
       });
     } catch (err) {
-      res.render('login', {
-        pagename: 'Login',
-        message: err.response.data.error.message
-      })
+      res.render("login", {
+        pagename: "Login",
+        message: err.response.data.error.message,
+      });
     }
   } else {
-    res.render('login', {
-      pagename: 'Login',
+    res.render("login", {
+      pagename: "Login",
       body: req.body,
       errors,
-      message: messages.failed_login
-    })
+      message: messages.failed_login,
+    });
   }
 });
 

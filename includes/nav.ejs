@@ -18,12 +18,24 @@
         <li class="nav-item">
           <a class="nav-link" href="/about">About</a>
         </li>
+        <% if(typeof session !== 'undefined' && session?.logged){ %>
+        <li class="nav-item">
+          <a class="nav-link" href="/books">Books</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/authors">Authors</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Logout</a>
+        </li>
+        <% }else{ %>
         <li class="nav-item">
           <a class="nav-link" href="/register">Register</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/login">Login</a>
         </li>
+        <% } %>
       </ul>
     </div>
   </div>
