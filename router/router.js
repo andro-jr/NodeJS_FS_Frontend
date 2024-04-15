@@ -2,7 +2,7 @@ const express = require("express");
 const { validateRegistration, validateLogin } = require("../validation/validation");
 const { isEmpty } = require("../utilities/util");
 const messages = require("../utilities/messages");
-const { postRegister } = require("../services/userService");
+const { postRegister, postLogin } = require("../services/userService");
 
 const router = express.Router();
 
@@ -61,12 +61,22 @@ router.get("/login", (req, res) => {
   });
 });
 
-router.post("/login", (req, res) => {
+router.post("/login", async (req, res) => {
   const errors = validateLogin(req.body);
   if (isEmpty(errors)) {
-    res.render("index", {
-      pagename: "Home", message: messages.successful_login
-    });
+    try {
+      const response = await postLogin(req.body)
+      console.log('response :', response);
+
+      res.render("index", {
+        pagename: "Home", message: messages.successful_login
+      });
+    } catch (err) {
+      res.render('login', {
+        pagename: 'Login',
+        message: err.response.data.error.message
+      })
+    }
   } else {
     res.render('login', {
       pagename: 'Login',
