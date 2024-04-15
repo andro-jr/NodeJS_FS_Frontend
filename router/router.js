@@ -26,19 +26,19 @@ router.use((req, res, next) => {
 });
 
 router.get("/", (req, res) => {
-  session = req.session
+  session = req.session;
 
   res.render("index", {
     pagename: "Home",
-    session
+    session,
   });
 });
 
 router.get("/about", (req, res) => {
-  session = req.session
+  session = req.session;
   res.render("about", {
     pagename: "About",
-    session
+    session,
   });
 });
 
@@ -91,7 +91,7 @@ router.post("/login", async (req, res) => {
       session.logged = response.data.logged;
       session.token = response.data.token;
 
-      console.log(session)
+      console.log(session);
 
       res.render("index", {
         pagename: "Home",
@@ -112,6 +112,13 @@ router.post("/login", async (req, res) => {
       message: messages.failed_login,
     });
   }
+});
+
+router.get("/logout", (req, res) => {
+  req.session.destroy(null);
+  res.render("index", {
+    pagename: "Home"
+  });
 });
 
 module.exports = router;
