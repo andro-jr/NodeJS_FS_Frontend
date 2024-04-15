@@ -86,12 +86,9 @@ router.post("/login", async (req, res) => {
   if (isEmpty(errors)) {
     try {
       const response = await postLogin(req.body);
-      console.log("response :", response);
       session.name = response.data.user.firstName;
       session.logged = response.data.logged;
       session.token = response.data.token;
-
-      console.log(session);
 
       res.render("index", {
         pagename: "Home",
