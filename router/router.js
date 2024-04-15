@@ -2,6 +2,7 @@ const express = require("express");
 const { validateRegistration, validateLogin } = require("../validation/validation");
 const { isEmpty } = require("../utilities/util");
 const messages = require("../utilities/messages");
+const { postRegister } = require("../services/userService");
 
 const router = express.Router();
 
@@ -29,12 +30,21 @@ router.get("/register", (req, res) => {
   });
 });
 
-router.post("/register", (req, res) => {
+router.post("/register", async (req, res) => {
   const errors = validateRegistration(req.body);
   if (isEmpty(errors)) {
-    res.render("login", {
-      pagename: "Login", message: messages.successful_register
-    });
+    try {
+      await postRegister(req.body)
+
+      res.render("login", {
+        pagename: "Login", message: messages.successful_register
+      });
+    } catch (err) {
+      res.render('register', {
+        pagename: 'Register',
+        message: err.response.data.error.message
+      })
+    }
   } else {
     res.render('register', {
       pagename: 'Register',
