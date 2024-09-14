@@ -32,10 +32,11 @@
     <%- include('../includes/nav') %>
     <!-- Masthead-->
     <div>
-      <% if(typeof(message) != 'undefined'){%>
+      <% if(typeof(session) != 'undefined' && typeof(session.name) !=
+      'undefined'){%>
 
-        <h4 class="success-message"><%- message %></h4>
-        <% } %>
+      <h4 class="success-message">Welcome <%-session.name %></h4>
+      <% } %>
     </div>
     <header class="masthead">
       <div
