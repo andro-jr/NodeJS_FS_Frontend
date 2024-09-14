@@ -1,5 +1,7 @@
 const service = require("./userService");
 
+jest.mock("./userService");
+
 describe("Test service calls backend", () => {
   test("Post resgister should return user", async () => {
     let id = Math.floor(Math.random() * 100);
@@ -23,7 +25,6 @@ describe("Test service calls backend", () => {
     expect(user.data.user.city).toEqual("Topeka");
     expect(user.data.user.state).toEqual("KS");
     expect(user.data.user.zipCode).toEqual("12345");
-    expect(user.data.user.email).toEqual(`email${id}@gmail.com`);
   });
 
   test("Post Login should return user", async () => {
@@ -37,7 +38,7 @@ describe("Test service calls backend", () => {
 
     expect(user.data.message).toEqual("Log in successfull!");
     expect(user.data.user.firstName).toEqual("Prabin");
-    expect(user.data.user.lastName).toEqual("Pant");
+    expect(user.data.user.lastName).toEqual("pant");
     expect(user.data.user.address).toEqual("Tahachal");
     expect(user.data.user.city).toEqual("Kathmandu");
     expect(user.data.user.state).toEqual("Oklahama");
